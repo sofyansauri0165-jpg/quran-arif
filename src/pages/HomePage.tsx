@@ -13,7 +13,10 @@ import {
   BookmarkCheck,
   CheckCircle2,
   Loader2,
-  AlertCircle
+  AlertCircle,
+  Compass,
+  HeartHandshake,
+  GraduationCap
 } from 'lucide-react';
 import { PWAInstallButton } from '../components/common/PWAInstallButton';
 import { PrayerTimeCard } from '../components/prayer/PrayerTimeCard';
@@ -225,6 +228,97 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenSurah, onO
             <div className="flex justify-between text-[11px] text-[#5E6B7C] font-semibold">
               <span>Progres harian</span>
               <span>{progressPercent}%</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Bagian Fitur Ibadah Utama */}
+      <section className="space-y-3">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-base sm:text-lg font-bold text-[#061A35]">
+              Fitur Ibadah Harian
+            </h2>
+            <p className="text-xs text-[#5E6B7C]">
+              Pelengkap tilawah, panduan arah salat, dan adab doa sehari-hari
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+          {/* Card 1: Doa Harian */}
+          <div
+            onClick={() => onNavigate('dua')}
+            className="p-5 rounded-3xl bg-white border border-[#E4E9F0] hover:border-[#0756C9] hover:shadow-md transition cursor-pointer flex flex-col justify-between group"
+          >
+            <div className="space-y-3">
+              <div className="w-11 h-11 rounded-2xl bg-[#E8F2FF] text-[#0756C9] flex items-center justify-center group-hover:bg-[#0756C9] group-hover:text-white transition">
+                <HeartHandshake className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="font-extrabold text-base text-[#061A35] group-hover:text-[#0756C9] transition">
+                  Doa Harian
+                </h3>
+                <p className="text-xs text-[#5E6B7C] mt-1 leading-relaxed">
+                  Temukan doa ma’tsur sahih untuk berbagai aktivitas sehari-hari.
+                </p>
+              </div>
+            </div>
+
+            <div className="pt-4 mt-2 border-t border-[#E4E9F0] flex items-center justify-between text-xs font-bold text-[#0756C9]">
+              <span>Buka Kumpulan Doa</span>
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+            </div>
+          </div>
+
+          {/* Card 2: Kompas Kiblat */}
+          <div
+            onClick={() => onNavigate('qibla')}
+            className="p-5 rounded-3xl bg-white border border-[#E4E9F0] hover:border-[#0756C9] hover:shadow-md transition cursor-pointer flex flex-col justify-between group"
+          >
+            <div className="space-y-3">
+              <div className="w-11 h-11 rounded-2xl bg-[#E8F2FF] text-[#0756C9] flex items-center justify-center group-hover:bg-[#0756C9] group-hover:text-white transition">
+                <Compass className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="font-extrabold text-base text-[#061A35] group-hover:text-[#0756C9] transition">
+                  Kompas Kiblat
+                </h3>
+                <p className="text-xs text-[#5E6B7C] mt-1 leading-relaxed">
+                  Cari arah kiblat presisi berdasarkan lokasi dan sensor perangkat Anda.
+                </p>
+              </div>
+            </div>
+
+            <div className="pt-4 mt-2 border-t border-[#E4E9F0] flex items-center justify-between text-xs font-bold text-[#0756C9]">
+              <span>Buka Kompas Kiblat</span>
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+            </div>
+          </div>
+
+          {/* Card 3: Belajar Tajwid */}
+          <div
+            onClick={() => onNavigate('tajwid')}
+            className="p-5 rounded-3xl bg-white border border-[#E4E9F0] hover:border-[#0756C9] hover:shadow-md transition cursor-pointer flex flex-col justify-between group"
+          >
+            <div className="space-y-3">
+              <div className="w-11 h-11 rounded-2xl bg-[#E8F2FF] text-[#0756C9] flex items-center justify-center group-hover:bg-[#0756C9] group-hover:text-white transition">
+                <GraduationCap className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="font-extrabold text-base text-[#061A35] group-hover:text-[#0756C9] transition">
+                  Belajar Tajwid
+                </h3>
+                <p className="text-xs text-[#5E6B7C] mt-1 leading-relaxed">
+                  Pelajari hukum bacaan Al-Qur’an secara bertahap dengan kuis interaktif.
+                </p>
+              </div>
+            </div>
+
+            <div className="pt-4 mt-2 border-t border-[#E4E9F0] flex items-center justify-between text-xs font-bold text-[#0756C9]">
+              <span>Mulai Belajar Tajwid</span>
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
             </div>
           </div>
         </div>

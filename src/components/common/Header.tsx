@@ -1,7 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { APP_CONFIG } from '../../config/appConfig';
 import { PWAInstallButton } from './PWAInstallButton';
-import { BookOpen, Bookmark, Search, Settings, Home } from 'lucide-react';
+import {
+  BookOpen,
+  Bookmark,
+  Search,
+  Settings,
+  Home,
+  HeartHandshake,
+  Compass,
+  Sparkles,
+  Menu,
+  X,
+} from 'lucide-react';
 
 interface HeaderProps {
   currentTab: string;
@@ -10,12 +21,19 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({ currentTab, onNavigate, onOpenSettings }) => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const handleNavClick = (tab: string) => {
+    onNavigate(tab);
+    setMobileMenuOpen(false);
+  };
+
   return (
-    <header className="sticky top-0 z-40 bg-[#FDFBF5]/90 backdrop-blur-md border-b border-[#E4E9F0]">
+    <header className="sticky top-0 z-40 bg-[#FDFBF5]/95 backdrop-blur-md border-b border-[#E4E9F0]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-2">
         {/* Logo and Brand */}
         <button
-          onClick={() => onNavigate('home')}
+          onClick={() => handleNavClick('home')}
           className="flex items-center gap-3 text-left focus:outline-hidden focus-visible:ring-2 focus-visible:ring-[#168BFF] rounded-xl p-1 -ml-1 transition group cursor-pointer"
         >
           <img
@@ -39,9 +57,9 @@ export const Header: React.FC<HeaderProps> = ({ currentTab, onNavigate, onOpenSe
         </button>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-1 text-sm font-medium">
+        <nav className="hidden lg:flex items-center gap-1 text-sm font-medium">
           <button
-            onClick={() => onNavigate('home')}
+            onClick={() => handleNavClick('home')}
             className={`px-3 py-2 rounded-xl transition flex items-center gap-1.5 cursor-pointer ${
               currentTab === 'home'
                 ? 'bg-[#E8F2FF] text-[#0756C9] font-semibold'
@@ -53,7 +71,7 @@ export const Header: React.FC<HeaderProps> = ({ currentTab, onNavigate, onOpenSe
           </button>
 
           <button
-            onClick={() => onNavigate('surahs')}
+            onClick={() => handleNavClick('surahs')}
             className={`px-3 py-2 rounded-xl transition flex items-center gap-1.5 cursor-pointer ${
               currentTab === 'surahs' || currentTab === 'reader'
                 ? 'bg-[#E8F2FF] text-[#0756C9] font-semibold'
@@ -65,19 +83,43 @@ export const Header: React.FC<HeaderProps> = ({ currentTab, onNavigate, onOpenSe
           </button>
 
           <button
-            onClick={() => onNavigate('search')}
+            onClick={() => handleNavClick('dua')}
             className={`px-3 py-2 rounded-xl transition flex items-center gap-1.5 cursor-pointer ${
-              currentTab === 'search'
+              currentTab === 'dua'
                 ? 'bg-[#E8F2FF] text-[#0756C9] font-semibold'
                 : 'text-[#5E6B7C] hover:text-[#061A35] hover:bg-[#E8F2FF]/50'
             }`}
           >
-            <Search className="w-4 h-4" />
-            <span>Pencarian</span>
+            <HeartHandshake className="w-4 h-4" />
+            <span>Doa Harian</span>
           </button>
 
           <button
-            onClick={() => onNavigate('bookmarks')}
+            onClick={() => handleNavClick('qibla')}
+            className={`px-3 py-2 rounded-xl transition flex items-center gap-1.5 cursor-pointer ${
+              currentTab === 'qibla'
+                ? 'bg-[#E8F2FF] text-[#0756C9] font-semibold'
+                : 'text-[#5E6B7C] hover:text-[#061A35] hover:bg-[#E8F2FF]/50'
+            }`}
+          >
+            <Compass className="w-4 h-4" />
+            <span>Kiblat</span>
+          </button>
+
+          <button
+            onClick={() => handleNavClick('tajwid')}
+            className={`px-3 py-2 rounded-xl transition flex items-center gap-1.5 cursor-pointer ${
+              currentTab === 'tajwid'
+                ? 'bg-[#E8F2FF] text-[#0756C9] font-semibold'
+                : 'text-[#5E6B7C] hover:text-[#061A35] hover:bg-[#E8F2FF]/50'
+            }`}
+          >
+            <Sparkles className="w-4 h-4" />
+            <span>Tajwid</span>
+          </button>
+
+          <button
+            onClick={() => handleNavClick('bookmarks')}
             className={`px-3 py-2 rounded-xl transition flex items-center gap-1.5 cursor-pointer ${
               currentTab === 'bookmarks'
                 ? 'bg-[#E8F2FF] text-[#0756C9] font-semibold'
@@ -93,11 +135,12 @@ export const Header: React.FC<HeaderProps> = ({ currentTab, onNavigate, onOpenSe
         <div className="flex items-center gap-2">
           <PWAInstallButton variant="header" />
 
-          {/* Quick search shortcut on mobile */}
+          {/* Quick search button */}
           <button
-            onClick={() => onNavigate('search')}
-            className="md:hidden p-2 rounded-xl text-[#061A35] hover:bg-[#E8F2FF] transition cursor-pointer"
+            onClick={() => handleNavClick('search')}
+            className="p-2 rounded-xl text-[#061A35] hover:bg-[#E8F2FF] transition cursor-pointer"
             aria-label="Cari Al-Qur’an"
+            title="Pencarian Surat & Ayat"
           >
             <Search className="w-5 h-5" />
           </button>
@@ -110,8 +153,97 @@ export const Header: React.FC<HeaderProps> = ({ currentTab, onNavigate, onOpenSe
           >
             <Settings className="w-5 h-5" />
           </button>
+
+          {/* Mobile menu toggle button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="lg:hidden p-2 rounded-xl text-[#061A35] hover:bg-[#E8F2FF] transition cursor-pointer"
+            aria-label="Menu Navigasi"
+            aria-expanded={mobileMenuOpen}
+          >
+            {mobileMenuOpen ? <X className="w-5 h-5 text-[#0756C9]" /> : <Menu className="w-5 h-5" />}
+          </button>
         </div>
       </div>
+
+      {/* Mobile Dropdown Menu Drawer */}
+      {mobileMenuOpen && (
+        <div className="lg:hidden border-t border-[#E4E9F0] bg-white px-4 py-3 shadow-lg animate-in fade-in slide-in-from-top-2 duration-200">
+          <div className="grid grid-cols-2 gap-2 text-sm font-semibold">
+            <button
+              onClick={() => handleNavClick('home')}
+              className={`p-3 rounded-2xl flex items-center gap-2.5 transition text-left cursor-pointer ${
+                currentTab === 'home'
+                  ? 'bg-[#E8F2FF] text-[#0756C9]'
+                  : 'bg-[#FDFBF5] text-[#061A35] hover:bg-[#E8F2FF]/60'
+              }`}
+            >
+              <Home className="w-4 h-4 text-[#0756C9]" />
+              <span>Beranda</span>
+            </button>
+
+            <button
+              onClick={() => handleNavClick('surahs')}
+              className={`p-3 rounded-2xl flex items-center gap-2.5 transition text-left cursor-pointer ${
+                currentTab === 'surahs' || currentTab === 'reader'
+                  ? 'bg-[#E8F2FF] text-[#0756C9]'
+                  : 'bg-[#FDFBF5] text-[#061A35] hover:bg-[#E8F2FF]/60'
+              }`}
+            >
+              <BookOpen className="w-4 h-4 text-[#0756C9]" />
+              <span>114 Surat</span>
+            </button>
+
+            <button
+              onClick={() => handleNavClick('dua')}
+              className={`p-3 rounded-2xl flex items-center gap-2.5 transition text-left cursor-pointer ${
+                currentTab === 'dua'
+                  ? 'bg-[#E8F2FF] text-[#0756C9]'
+                  : 'bg-[#FDFBF5] text-[#061A35] hover:bg-[#E8F2FF]/60'
+              }`}
+            >
+              <HeartHandshake className="w-4 h-4 text-[#0756C9]" />
+              <span>Doa Harian</span>
+            </button>
+
+            <button
+              onClick={() => handleNavClick('qibla')}
+              className={`p-3 rounded-2xl flex items-center gap-2.5 transition text-left cursor-pointer ${
+                currentTab === 'qibla'
+                  ? 'bg-[#E8F2FF] text-[#0756C9]'
+                  : 'bg-[#FDFBF5] text-[#061A35] hover:bg-[#E8F2FF]/60'
+              }`}
+            >
+              <Compass className="w-4 h-4 text-[#0756C9]" />
+              <span>Kompas Kiblat</span>
+            </button>
+
+            <button
+              onClick={() => handleNavClick('tajwid')}
+              className={`p-3 rounded-2xl flex items-center gap-2.5 transition text-left cursor-pointer ${
+                currentTab === 'tajwid'
+                  ? 'bg-[#E8F2FF] text-[#0756C9]'
+                  : 'bg-[#FDFBF5] text-[#061A35] hover:bg-[#E8F2FF]/60'
+              }`}
+            >
+              <Sparkles className="w-4 h-4 text-[#0756C9]" />
+              <span>Belajar Tajwid</span>
+            </button>
+
+            <button
+              onClick={() => handleNavClick('bookmarks')}
+              className={`p-3 rounded-2xl flex items-center gap-2.5 transition text-left cursor-pointer ${
+                currentTab === 'bookmarks'
+                  ? 'bg-[#E8F2FF] text-[#0756C9]'
+                  : 'bg-[#FDFBF5] text-[#061A35] hover:bg-[#E8F2FF]/60'
+              }`}
+            >
+              <Bookmark className="w-4 h-4 text-[#0756C9]" />
+              <span>Bookmark</span>
+            </button>
+          </div>
+        </div>
+      )}
     </header>
   );
 };

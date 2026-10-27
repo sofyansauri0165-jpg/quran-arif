@@ -12,23 +12,30 @@ import { BottomNav } from './components/common/BottomNav';
 import { OfflineIndicator } from './components/common/OfflineIndicator';
 import { MiniAudioPlayer } from './components/audio/MiniAudioPlayer';
 import { PrayerActiveAudioBanner } from './components/prayer/PrayerActiveAudioBanner';
+import { PWAInstallBanner } from './components/common/PWAInstallBanner';
 import { SettingsModal } from './components/settings/SettingsModal';
 import { HomePage } from './pages/HomePage';
 import { SurahListPage } from './pages/SurahListPage';
 import { ReaderPage } from './pages/ReaderPage';
 import { SearchPage } from './pages/SearchPage';
 import { BookmarksPage } from './pages/BookmarksPage';
+import { DuaPage } from './pages/DuaPage';
+import { QiblaPage } from './pages/QiblaPage';
+import { TajwidPage } from './pages/TajwidPage';
 import { getSettings } from './storage/persistence';
 import { UserSettings } from './types/quran';
 
+export type AppTabType = 'home' | 'surahs' | 'reader' | 'search' | 'bookmarks' | 'dua' | 'qibla' | 'tajwid';
+
 function AppContent() {
-  const [currentTab, setCurrentTab] = useState<'home' | 'surahs' | 'reader' | 'search' | 'bookmarks'>('home');
+  const [currentTab, setCurrentTab] = useState<AppTabType>('home');
   const [readerSurah, setReaderSurah] = useState<number>(1);
   const [readerAyah, setReaderAyah] = useState<number | undefined>(undefined);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [settings, setSettings] = useState<UserSettings>(() => getSettings());
 
-  const { pause: pauseMurottal } = useAudio();
+  const { pause: pauseMurottal, playingState } = useAudio();
+  const hasActiveAudio = playingState.mode !== 'idle';
 
   // Scroll to top on tab change
   useEffect(() => {
@@ -102,7 +109,25 @@ function AppContent() {
           {currentTab === 'bookmarks' && (
             <BookmarksPage onOpenSurah={handleOpenSurah} />
           )}
+
+          {currentTab === 'dua' && (
+            <DuaPage onBack={() => setCurrentTab('home')} />
+          )}
+
+          {currentTab === 'qibla' && (
+            <QiblaPage onBack={() => setCurrentTab('home')} />
+          )}
+
+          {currentTab === 'tajwid' && (
+            <TajwidPage onBack={() => setCurrentTab('home')} />
+          )}
         </main>
+
+        {/* Smart PWA Installation Widget */}
+        <PWAInstallBanner
+          currentTab={currentTab}
+          hasActiveAudio={hasActiveAudio}
+        />
 
         {/* Floating Mini Player for Murottal Audio */}
         <MiniAudioPlayer />

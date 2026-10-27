@@ -1,4 +1,5 @@
 import { Bookmark, LastRead, UserSettings, DailyProgress, SurahListItem, SurahDetail } from '../types/quran';
+import { TajwidQuizProgress } from '../types/tajwid';
 
 const STORAGE_KEYS = {
   BOOKMARKS: 'maj_quran_bookmarks',
@@ -8,6 +9,8 @@ const STORAGE_KEYS = {
   DAILY_PROGRESS: 'maj_quran_daily_progress',
   CACHE_SURAHS: 'maj_quran_cache_surahs',
   CACHE_SURAH_PREFIX: 'maj_quran_cache_surah_',
+  FAVORITE_DUAS: 'maj_quran_favorite_duas',
+  TAJWID_PROGRESS: 'maj_quran_tajwid_progress',
 };
 
 export const DEFAULT_SETTINGS: UserSettings = {
@@ -166,4 +169,37 @@ export function getCachedSurahDetail(surahNumber: number): SurahDetail | null {
 
 export function setCachedSurahDetail(surahNumber: number, data: SurahDetail): void {
   setItem(`${STORAGE_KEYS.CACHE_SURAH_PREFIX}${surahNumber}`, data);
+}
+
+// Favorite Duas
+export function getFavoriteDuaIds(): string[] {
+  return getItem<string[]>(STORAGE_KEYS.FAVORITE_DUAS, []);
+}
+
+export function toggleFavoriteDua(id: string): string[] {
+  const current = getFavoriteDuaIds();
+  const exists = current.includes(id);
+  const updated = exists ? current.filter(x => x !== id) : [...current, id];
+  setItem(STORAGE_KEYS.FAVORITE_DUAS, updated);
+  return updated;
+}
+
+export function isDuaFavorite(id: string): boolean {
+  return getFavoriteDuaIds().includes(id);
+}
+
+// Tajwid Progress
+export const DEFAULT_TAJWID_PROGRESS: TajwidQuizProgress = {
+  totalAnswered: 0,
+  correctAnswers: 0,
+  completedRuleIds: [],
+  lastScorePercent: 0,
+};
+
+export function getTajwidProgress(): TajwidQuizProgress {
+  return getItem<TajwidQuizProgress>(STORAGE_KEYS.TAJWID_PROGRESS, DEFAULT_TAJWID_PROGRESS);
+}
+
+export function saveTajwidProgress(progress: TajwidQuizProgress): void {
+  setItem(STORAGE_KEYS.TAJWID_PROGRESS, progress);
 }

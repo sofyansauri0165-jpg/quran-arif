@@ -20,6 +20,7 @@ import { UserSettings } from '../../types/quran';
 import { saveSettings, DEFAULT_SETTINGS } from '../../storage/persistence';
 import { useAudio } from '../../context/AudioContext';
 import { usePrayerAudio } from '../../context/PrayerAudioContext';
+import { PWAInstallButton } from '../common/PWAInstallButton';
 
 interface SettingsModalProps {
   isOpen: boolean;
@@ -289,6 +290,24 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                       {targetVal}
                     </button>
                   ))}
+                </div>
+              </div>
+
+              {/* 6. PWA Installation Section */}
+              <div className="p-4 rounded-2xl bg-[#FDFBF5] border border-[#E4E9F0] space-y-2.5">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Sparkles className="w-4 h-4 text-[#0756C9]" />
+                    <span className="text-xs font-bold text-[#061A35]">
+                      Instalasi Aplikasi (PWA)
+                    </span>
+                  </div>
+                </div>
+                <p className="text-xs text-[#5E6B7C]">
+                  Pasang Maj Qur'an ke layar utama perangkat Anda untuk akses instan tanpa bilah URL browser dan dukungan membaca offline.
+                </p>
+                <div className="pt-1">
+                  <PWAInstallButton variant="settings" />
                 </div>
               </div>
             </>

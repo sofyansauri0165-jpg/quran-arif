@@ -1,0 +1,6 @@
+{
+  "name": "Maj Qur'an",
+  "description": "Aplikasi Al-Qur’an Digital & PWA Modern - Dekat dengan Al-Qur’an, Setiap Hari.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

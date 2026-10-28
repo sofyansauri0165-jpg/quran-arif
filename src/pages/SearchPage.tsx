@@ -67,7 +67,7 @@ export const SearchPage: React.FC<SearchPageProps> = ({ onOpenSurah }) => {
   ];
 
   return (
-    <div className="max-w-3xl mx-auto space-y-6 pb-24">
+    <div className="max-w-3xl mx-auto space-y-6 pb-28">
       <div>
         <h1 className="text-2xl font-extrabold text-[#061A35] tracking-tight">
           Pencarian Al-Qur'an

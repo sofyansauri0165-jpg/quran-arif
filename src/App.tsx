@@ -22,10 +22,11 @@ import { BookmarksPage } from './pages/BookmarksPage';
 import { DuaPage } from './pages/DuaPage';
 import { QiblaPage } from './pages/QiblaPage';
 import { TajwidPage } from './pages/TajwidPage';
+import { ProfilePage } from './pages/ProfilePage';
 import { getSettings } from './storage/persistence';
 import { UserSettings } from './types/quran';
 
-export type AppTabType = 'home' | 'surahs' | 'reader' | 'search' | 'bookmarks' | 'dua' | 'qibla' | 'tajwid';
+export type AppTabType = 'home' | 'surahs' | 'reader' | 'search' | 'bookmarks' | 'dua' | 'qibla' | 'tajwid' | 'profile';
 
 function AppContent() {
   const [currentTab, setCurrentTab] = useState<AppTabType>('home');
@@ -120,6 +121,15 @@ function AppContent() {
 
           {currentTab === 'tajwid' && (
             <TajwidPage onBack={() => setCurrentTab('home')} />
+          )}
+
+          {currentTab === 'profile' && (
+            <ProfilePage
+              onOpenSurah={handleOpenSurah}
+              onNavigate={handleNavigate}
+              onOpenSettingsModal={() => setIsSettingsOpen(true)}
+              onSettingsUpdate={newSettings => setSettings(newSettings)}
+            />
           )}
         </main>
 

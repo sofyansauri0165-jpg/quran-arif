@@ -49,7 +49,7 @@ export const BookmarksPage: React.FC<BookmarksPageProps> = ({ onOpenSurah }) => 
   const notesList = bookmarks.filter(b => b.note && b.note.trim().length > 0);
 
   return (
-    <div className="max-w-3xl mx-auto space-y-6 pb-24">
+    <div className="max-w-3xl mx-auto space-y-6 pb-28">
       {/* Page Header */}
       <div>
         <h1 className="text-2xl font-extrabold text-[#061A35] tracking-tight">

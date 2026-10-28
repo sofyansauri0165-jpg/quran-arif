@@ -12,6 +12,7 @@ import {
   Sparkles,
   Menu,
   X,
+  User,
 } from 'lucide-react';
 
 interface HeaderProps {
@@ -129,10 +130,22 @@ export const Header: React.FC<HeaderProps> = ({ currentTab, onNavigate, onOpenSe
             <Bookmark className="w-4 h-4" />
             <span>Bookmark</span>
           </button>
+
+          <button
+            onClick={() => handleNavClick('profile')}
+            className={`px-3 py-2 rounded-xl transition flex items-center gap-1.5 cursor-pointer ${
+              currentTab === 'profile'
+                ? 'bg-[#E8F2FF] text-[#0756C9] font-semibold'
+                : 'text-[#5E6B7C] hover:text-[#061A35] hover:bg-[#E8F2FF]/50'
+            }`}
+          >
+            <User className="w-4 h-4" />
+            <span>Profil</span>
+          </button>
         </nav>
 
         {/* Actions & Settings & PWA */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 sm:gap-2">
           <PWAInstallButton variant="header" />
 
           {/* Quick search button */}
@@ -152,6 +165,20 @@ export const Header: React.FC<HeaderProps> = ({ currentTab, onNavigate, onOpenSe
             title="Pengaturan Tampilan & Audio"
           >
             <Settings className="w-5 h-5" />
+          </button>
+
+          {/* Profile Avatar Button (as in reference design) */}
+          <button
+            onClick={() => handleNavClick('profile')}
+            className={`w-9 h-9 rounded-full flex items-center justify-center transition cursor-pointer shrink-0 shadow-2xs ${
+              currentTab === 'profile'
+                ? 'bg-[#0756C9] text-white ring-2 ring-[#168BFF]/40'
+                : 'bg-[#061A35] text-white hover:bg-[#0756C9]'
+            }`}
+            aria-label="Profil Pengguna"
+            title="Profil & Tilawah Pengguna"
+          >
+            <User className="w-4 h-4" />
           </button>
 
           {/* Mobile menu toggle button */}
@@ -240,6 +267,18 @@ export const Header: React.FC<HeaderProps> = ({ currentTab, onNavigate, onOpenSe
             >
               <Bookmark className="w-4 h-4 text-[#0756C9]" />
               <span>Bookmark</span>
+            </button>
+
+            <button
+              onClick={() => handleNavClick('profile')}
+              className={`p-3 rounded-2xl flex items-center gap-2.5 transition text-left cursor-pointer ${
+                currentTab === 'profile'
+                  ? 'bg-[#E8F2FF] text-[#0756C9]'
+                  : 'bg-[#FDFBF5] text-[#061A35] hover:bg-[#E8F2FF]/60'
+              }`}
+            >
+              <User className="w-4 h-4 text-[#0756C9]" />
+              <span>Profil Saya</span>
             </button>
           </div>
         </div>

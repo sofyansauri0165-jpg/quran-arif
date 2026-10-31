@@ -13,6 +13,7 @@ import { OfflineIndicator } from './components/common/OfflineIndicator';
 import { MiniAudioPlayer } from './components/audio/MiniAudioPlayer';
 import { PrayerActiveAudioBanner } from './components/prayer/PrayerActiveAudioBanner';
 import { PWAInstallBanner } from './components/common/PWAInstallBanner';
+import { Footer } from './components/common/Footer';
 import { SettingsModal } from './components/settings/SettingsModal';
 import { HomePage } from './pages/HomePage';
 import { SurahListPage } from './pages/SurahListPage';
@@ -22,11 +23,10 @@ import { BookmarksPage } from './pages/BookmarksPage';
 import { DuaPage } from './pages/DuaPage';
 import { QiblaPage } from './pages/QiblaPage';
 import { TajwidPage } from './pages/TajwidPage';
-import { ProfilePage } from './pages/ProfilePage';
 import { getSettings } from './storage/persistence';
 import { UserSettings } from './types/quran';
 
-export type AppTabType = 'home' | 'surahs' | 'reader' | 'search' | 'bookmarks' | 'dua' | 'qibla' | 'tajwid' | 'profile';
+export type AppTabType = 'home' | 'surahs' | 'reader' | 'search' | 'bookmarks' | 'dua' | 'qibla' | 'tajwid';
 
 function AppContent() {
   const [currentTab, setCurrentTab] = useState<AppTabType>('home');
@@ -37,6 +37,13 @@ function AppContent() {
 
   const { pause: pauseMurottal, playingState } = useAudio();
   const hasActiveAudio = playingState.mode !== 'idle';
+
+  // Fallback protection: safely handle legacy profile tab
+  useEffect(() => {
+    if ((currentTab as string) === 'profile') {
+      setCurrentTab('home');
+    }
+  }, [currentTab]);
 
   // Scroll to top on tab change
   useEffect(() => {
@@ -50,6 +57,10 @@ function AppContent() {
   };
 
   const handleNavigate = (tab: string, params?: any) => {
+    if (tab === 'profile') {
+      setCurrentTab('home');
+      return;
+    }
     if (tab === 'reader' && params?.surahNumber) {
       setReaderSurah(params.surahNumber);
       setReaderAyah(params.targetAyah);
@@ -61,7 +72,7 @@ function AppContent() {
 
   return (
     <PrayerAudioProvider onBeforeAudioPlay={pauseMurottal}>
-      <div className="min-h-screen flex flex-col bg-[#FDFBF5] text-[#061A35]">
+      <div className="min-h-screen flex flex-col bg-[#031126] text-white selection:bg-[#168BFF]/40 selection:text-white relative">
         {/* Offline notification badge */}
         <OfflineIndicator />
 
@@ -76,7 +87,7 @@ function AppContent() {
         />
 
         {/* Main Content Area */}
-        <main className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 pt-6">
+        <main className="flex-1 w-full mx-auto px-3 sm:px-6 lg:px-[30px] pt-3 sm:pt-6 overflow-x-hidden">
           {currentTab === 'home' && (
             <HomePage
               onNavigate={handleNavigate}
@@ -123,14 +134,6 @@ function AppContent() {
             <TajwidPage onBack={() => setCurrentTab('home')} />
           )}
 
-          {currentTab === 'profile' && (
-            <ProfilePage
-              onOpenSurah={handleOpenSurah}
-              onNavigate={handleNavigate}
-              onOpenSettingsModal={() => setIsSettingsOpen(true)}
-              onSettingsUpdate={newSettings => setSettings(newSettings)}
-            />
-          )}
         </main>
 
         {/* Smart PWA Installation Widget */}
@@ -156,24 +159,8 @@ function AppContent() {
           onSettingsChange={newSettings => setSettings(newSettings)}
         />
 
-        {/* Footer */}
-        <footer className="mt-auto py-8 border-t border-[#E4E9F0] bg-white text-center text-xs text-[#5E6B7C] pb-24 md:pb-8">
-          <div className="max-w-4xl mx-auto px-4 space-y-2">
-            <div className="flex items-center justify-center gap-2">
-              <img
-                src={APP_CONFIG.logoUrl}
-                alt="Maj Qur'an"
-                className="w-5 h-5 object-contain rounded-full"
-              />
-              <span className="font-bold text-[#061A35]">{APP_CONFIG.appName}</span>
-              <span>—</span>
-              <span>"{APP_CONFIG.tagline}"</span>
-            </div>
-            <p className="text-[11px] text-[#5E6B7C]">
-              Jadwal Salat & Adzan resmi Kementerian Agama RI via myquran.com. Teks Al-Qur'an bersumber dari equran.id.
-            </p>
-          </div>
-        </footer>
+        {/* Footer with 3 Partner Logos & Attribution */}
+        <Footer />
       </div>
     </PrayerAudioProvider>
   );

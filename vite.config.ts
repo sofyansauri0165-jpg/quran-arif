@@ -11,7 +11,14 @@ export default defineConfig(() => {
       tailwindcss(),
       VitePWA({
         registerType: 'autoUpdate',
-        includeAssets: ['favicon.png', 'apple-touch-icon.png', 'assets/aistudio/1000061660-removebg-preview_f3ec290a.png'],
+        includeAssets: [
+          'favicon.png',
+          'apple-touch-icon.png',
+          'assets/aistudio/1000061660-removebg-preview_f3ec290a.png',
+          'assets/partners/logo-pondok-mandiri.png',
+          'assets/partners/logo-bbpvp-bekasi.png',
+          'assets/partners/logo-embi-tech.png',
+        ],
         manifest: {
           id: '/',
           name: "Maj Qur'an",

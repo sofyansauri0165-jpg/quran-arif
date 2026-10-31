@@ -82,13 +82,13 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4 animate-fade-in">
-      <div className="w-full max-w-xl max-h-[90vh] flex flex-col bg-white rounded-2xl shadow-2xl border border-[#E4E9F0] overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-xs p-4 animate-fade-in">
+      <div className="w-full max-w-xl max-h-[90vh] flex flex-col bg-[#061A35] rounded-3xl shadow-2xl border border-[#29415E] overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-[#E4E9F0] bg-[#FDFBF5]">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-[#29415E] bg-[#082245]">
           <div>
-            <h3 className="font-bold text-[#061A35] text-base">Pengaturan Aplikasi</h3>
-            <p className="text-[11px] text-[#5E6B7C]">
+            <h3 className="font-bold text-white text-base">Pengaturan Aplikasi</h3>
+            <p className="text-[11px] text-[#AABBD0]">
               Sesuaikan preferensi membaca tilawah dan pengingat waktu salat
             </p>
           </div>
@@ -97,20 +97,20 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
               stopPrayerAudio();
               onClose();
             }}
-            className="p-1.5 rounded-xl hover:bg-[#E8F2FF] text-[#5E6B7C] hover:text-[#061A35] transition cursor-pointer"
+            className="p-1.5 rounded-xl hover:bg-[#0c2f5d] text-[#AABBD0] hover:text-white transition cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Tab switchers: Tilawah vs Jadwal Salat */}
-        <div className="flex items-center border-b border-[#E4E9F0] bg-[#FDFBF5]/50 px-5 pt-2 gap-2">
+        <div className="flex items-center border-b border-[#29415E] bg-[#04152D]/80 px-5 pt-2 gap-2">
           <button
             onClick={() => setActiveTab('quran')}
             className={`pb-2.5 px-3 text-xs font-bold border-b-2 transition flex items-center gap-1.5 cursor-pointer ${
               activeTab === 'quran'
-                ? 'border-[#0756C9] text-[#0756C9]'
-                : 'border-transparent text-[#5E6B7C] hover:text-[#061A35]'
+                ? 'border-[#168BFF] text-[#168BFF]'
+                : 'border-transparent text-[#AABBD0] hover:text-white'
             }`}
           >
             <BookOpen className="w-4 h-4" />
@@ -121,8 +121,8 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             onClick={() => setActiveTab('prayer')}
             className={`pb-2.5 px-3 text-xs font-bold border-b-2 transition flex items-center gap-1.5 cursor-pointer ${
               activeTab === 'prayer'
-                ? 'border-[#0756C9] text-[#0756C9]'
-                : 'border-transparent text-[#5E6B7C] hover:text-[#061A35]'
+                ? 'border-[#168BFF] text-[#168BFF]'
+                : 'border-transparent text-[#AABBD0] hover:text-white'
             }`}
           >
             <Bell className="w-4 h-4" />
@@ -131,30 +131,30 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
         </div>
 
         {/* Content Body */}
-        <div className="p-6 overflow-y-auto space-y-6 flex-1 text-[#061A35]">
+        <div className="p-6 overflow-y-auto space-y-6 flex-1 text-white">
           {activeTab === 'quran' ? (
             <>
               {/* 1. Arabic Font Size */}
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <label className="flex items-center gap-2 text-xs font-bold text-[#061A35] uppercase tracking-wider">
-                    <Type className="w-4 h-4 text-[#0756C9]" />
+                  <label className="flex items-center gap-2 text-xs font-bold text-white uppercase tracking-wider">
+                    <Type className="w-4 h-4 text-[#168BFF]" />
                     <span>Ukuran Teks Arab</span>
                   </label>
-                  <span className="text-xs font-semibold text-[#0756C9] bg-[#E8F2FF] px-2 py-0.5 rounded-md">
+                  <span className="text-xs font-semibold text-[#168BFF] bg-[#082245] border border-[#29415E] px-2 py-0.5 rounded-md">
                     {fontSizes.find(f => f.id === current.arabicFontSize)?.label}
                   </span>
                 </div>
 
-                <div className="grid grid-cols-5 gap-1.5 p-1 bg-[#FDFBF5] border border-[#E4E9F0] rounded-xl">
+                <div className="grid grid-cols-5 gap-1.5 p-1 bg-[#04152D] border border-[#29415E] rounded-xl">
                   {fontSizes.map(f => (
                     <button
                       key={f.id}
                       onClick={() => updateSetting('arabicFontSize', f.id as any)}
                       className={`py-2 rounded-lg text-xs font-semibold transition cursor-pointer ${
                         current.arabicFontSize === f.id
-                          ? 'bg-[#0756C9] text-white shadow-xs'
-                          : 'text-[#5E6B7C] hover:text-[#061A35] hover:bg-white'
+                          ? 'bg-[#168BFF] text-white shadow-md'
+                          : 'text-[#AABBD0] hover:text-white hover:bg-[#082245]'
                       }`}
                     >
                       {f.label}
@@ -163,12 +163,12 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                 </div>
 
                 {/* Live Preview Box */}
-                <div className="p-4 rounded-xl bg-[#FDFBF5] border border-[#E4E9F0] text-right">
-                  <span className="text-[10px] font-semibold text-[#5E6B7C] block mb-1 text-left uppercase">
+                <div className="p-4 rounded-xl bg-[#082245] border border-[#29415E] text-right">
+                  <span className="text-[10px] font-semibold text-[#AABBD0] block mb-1 text-left uppercase">
                     Pratinjau Teks:
                   </span>
                   <p
-                    className={`font-arabic text-[#061A35] ${
+                    className={`font-arabic text-white ${
                       fontSizes.find(f => f.id === current.arabicFontSize)?.class || 'text-3xl'
                     }`}
                   >
@@ -179,17 +179,17 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
 
               {/* 2. Reciter Choice */}
               <div className="space-y-2">
-                <label className="flex items-center gap-2 text-xs font-bold text-[#061A35] uppercase tracking-wider">
-                  <Volume2 className="w-4 h-4 text-[#0756C9]" />
+                <label className="flex items-center gap-2 text-xs font-bold text-white uppercase tracking-wider">
+                  <Volume2 className="w-4 h-4 text-[#168BFF]" />
                   <span>Qari Pilihan (Murottal Audio)</span>
                 </label>
                 <select
                   value={current.selectedReciter}
                   onChange={e => updateSetting('selectedReciter', e.target.value)}
-                  className="w-full p-2.5 rounded-xl border border-[#E4E9F0] text-sm text-[#061A35] bg-white focus:outline-hidden focus:ring-2 focus:ring-[#168BFF] cursor-pointer"
+                  className="w-full p-2.5 rounded-xl border border-[#29415E] text-sm text-white bg-[#082245] focus:outline-hidden focus:ring-2 focus:ring-[#168BFF] cursor-pointer"
                 >
                   {APP_CONFIG.reciters.map(r => (
-                    <option key={r.id} value={r.id}>
+                    <option key={r.id} value={r.id} className="bg-[#061A35] text-white">
                       {r.name}
                     </option>
                   ))}
@@ -198,18 +198,18 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
 
               {/* 3. Toggles for Translation & Transliteration */}
               <div className="space-y-3">
-                <label className="flex items-center gap-2 text-xs font-bold text-[#061A35] uppercase tracking-wider">
-                  <Languages className="w-4 h-4 text-[#0756C9]" />
+                <label className="flex items-center gap-2 text-xs font-bold text-white uppercase tracking-wider">
+                  <Languages className="w-4 h-4 text-[#168BFF]" />
                   <span>Tampilan Teks</span>
                 </label>
 
                 <div className="space-y-2">
-                  <label className="flex items-center justify-between p-3 rounded-xl border border-[#E4E9F0] hover:bg-[#FDFBF5] cursor-pointer transition">
+                  <label className="flex items-center justify-between p-3 rounded-xl border border-[#29415E] bg-[#082245]/60 hover:bg-[#082245] cursor-pointer transition">
                     <div>
-                      <span className="text-sm font-semibold block text-[#061A35]">
+                      <span className="text-sm font-semibold block text-white">
                         Terjemahan Bahasa Indonesia
                       </span>
-                      <span className="text-xs text-[#5E6B7C]">
+                      <span className="text-xs text-[#AABBD0]">
                         Tampilkan arti ayat bahasa Indonesia resmi Kemenag
                       </span>
                     </div>
@@ -217,16 +217,16 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                       type="checkbox"
                       checked={current.showTranslation}
                       onChange={e => updateSetting('showTranslation', e.target.checked)}
-                      className="w-4 h-4 accent-[#0756C9] rounded-md cursor-pointer"
+                      className="w-4 h-4 accent-[#168BFF] rounded-md cursor-pointer"
                     />
                   </label>
 
-                  <label className="flex items-center justify-between p-3 rounded-xl border border-[#E4E9F0] hover:bg-[#FDFBF5] cursor-pointer transition">
+                  <label className="flex items-center justify-between p-3 rounded-xl border border-[#29415E] bg-[#082245]/60 hover:bg-[#082245] cursor-pointer transition">
                     <div>
-                      <span className="text-sm font-semibold block text-[#061A35]">
+                      <span className="text-sm font-semibold block text-white">
                         Transliterasi Latin
                       </span>
-                      <span className="text-xs text-[#5E6B7C]">
+                      <span className="text-xs text-[#AABBD0]">
                         Tampilkan cara baca huruf latin untuk membantu pelafalan
                       </span>
                     </div>
@@ -234,7 +234,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                       type="checkbox"
                       checked={current.showTransliteration}
                       onChange={e => updateSetting('showTransliteration', e.target.checked)}
-                      className="w-4 h-4 accent-[#0756C9] rounded-md cursor-pointer"
+                      className="w-4 h-4 accent-[#168BFF] rounded-md cursor-pointer"
                     />
                   </label>
                 </div>
@@ -316,12 +316,12 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
               {/* PRAYER AUDIO SETTINGS SECTION */}
 
               {/* 1. Master Toggle */}
-              <div className="p-4 rounded-2xl bg-[#E8F2FF]/60 border border-[#168BFF]/20 flex items-center justify-between">
+              <div className="p-4 rounded-2xl bg-[#082245] border border-[#29415E] flex items-center justify-between">
                 <div>
-                  <h4 className="text-sm font-bold text-[#061A35]">
+                  <h4 className="text-sm font-bold text-white">
                     Pengingat Suara Waktu Salat & Adzan
                   </h4>
-                  <p className="text-xs text-[#5E6B7C]">
+                  <p className="text-xs text-[#AABBD0]">
                     Bunyikan audio secara otomatis sesuai jadwal waktu salat
                   </p>
                 </div>
@@ -332,18 +332,18 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                     onChange={e => updatePrayerPrefs({ enabled: e.target.checked })}
                     className="sr-only peer"
                   />
-                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-hidden rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#0756C9]"></div>
+                  <div className="w-11 h-6 bg-[#04152D] border border-[#29415E] peer-focus:outline-hidden rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#168BFF]"></div>
                 </label>
               </div>
 
               {/* 2. Volume Slider */}
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <label className="flex items-center gap-2 text-xs font-bold text-[#061A35] uppercase tracking-wider">
-                    <Volume2 className="w-4 h-4 text-[#0756C9]" />
+                  <label className="flex items-center gap-2 text-xs font-bold text-white uppercase tracking-wider">
+                    <Volume2 className="w-4 h-4 text-[#168BFF]" />
                     <span>Volume Suara Adzan & Pengingat</span>
                   </label>
-                  <span className="text-xs font-bold text-[#0756C9]">
+                  <span className="text-xs font-bold text-[#168BFF]">
                     {Math.round(prayerPrefs.volume * 100)}%
                   </span>
                 </div>
@@ -354,20 +354,20 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                   step="0.05"
                   value={prayerPrefs.volume}
                   onChange={e => updatePrayerPrefs({ volume: parseFloat(e.target.value) })}
-                  className="w-full accent-[#0756C9] cursor-pointer"
+                  className="w-full accent-[#168BFF] cursor-pointer"
                 />
               </div>
 
               {/* 3. Audio Test Buttons for all 4 types */}
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <label className="text-xs font-bold text-[#061A35] uppercase tracking-wider block">
+                  <label className="text-xs font-bold text-white uppercase tracking-wider block">
                     Uji Coba Suara Audio
                   </label>
                   {activeAlert && (
                     <button
                       onClick={stopPrayerAudio}
-                      className="text-xs font-bold text-red-600 hover:underline"
+                      className="text-xs font-bold text-red-400 hover:underline cursor-pointer"
                     >
                       Hentikan Audio Uji
                     </button>
@@ -377,61 +377,61 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                   <button
                     onClick={() => playTestAudio('subuh')}
-                    className="p-3 rounded-xl border border-[#E4E9F0] hover:border-[#0756C9] bg-white hover:bg-[#E8F2FF] text-left transition flex items-center justify-between group cursor-pointer"
+                    className="p-3 rounded-xl border border-[#29415E] hover:border-[#168BFF] bg-[#082245] hover:bg-[#0c2f5d] text-left transition flex items-center justify-between group cursor-pointer"
                   >
                     <div>
-                      <span className="text-xs font-bold text-[#061A35] block group-hover:text-[#0756C9]">
+                      <span className="text-xs font-bold text-white block group-hover:text-[#168BFF]">
                         Uji Adzan Subuh
                       </span>
-                      <span className="text-[10px] text-[#5E6B7C]">Khusus waktu Subuh</span>
+                      <span className="text-[10px] text-[#AABBD0]">Khusus waktu Subuh</span>
                     </div>
-                    <Play className="w-4 h-4 text-[#0756C9] shrink-0" />
+                    <Play className="w-4 h-4 text-[#168BFF] shrink-0" />
                   </button>
 
                   <button
                     onClick={() => playTestAudio('general')}
-                    className="p-3 rounded-xl border border-[#E4E9F0] hover:border-[#0756C9] bg-white hover:bg-[#E8F2FF] text-left transition flex items-center justify-between group cursor-pointer"
+                    className="p-3 rounded-xl border border-[#29415E] hover:border-[#168BFF] bg-[#082245] hover:bg-[#0c2f5d] text-left transition flex items-center justify-between group cursor-pointer"
                   >
                     <div>
-                      <span className="text-xs font-bold text-[#061A35] block group-hover:text-[#0756C9]">
+                      <span className="text-xs font-bold text-white block group-hover:text-[#168BFF]">
                         Uji Adzan Umum
                       </span>
-                      <span className="text-[10px] text-[#5E6B7C]">Dzuhur, Ashar, Maghrib, Isya</span>
+                      <span className="text-[10px] text-[#AABBD0]">Dzuhur, Ashar, Maghrib, Isya</span>
                     </div>
-                    <Play className="w-4 h-4 text-[#0756C9] shrink-0" />
+                    <Play className="w-4 h-4 text-[#168BFF] shrink-0" />
                   </button>
 
                   <button
                     onClick={() => playTestAudio('imsak')}
-                    className="p-3 rounded-xl border border-[#E4E9F0] hover:border-[#0756C9] bg-white hover:bg-[#E8F2FF] text-left transition flex items-center justify-between group cursor-pointer"
+                    className="p-3 rounded-xl border border-[#29415E] hover:border-[#168BFF] bg-[#082245] hover:bg-[#0c2f5d] text-left transition flex items-center justify-between group cursor-pointer"
                   >
                     <div>
-                      <span className="text-xs font-bold text-[#061A35] block group-hover:text-[#0756C9]">
+                      <span className="text-xs font-bold text-white block group-hover:text-[#168BFF]">
                         Uji Pengingat Imsak
                       </span>
-                      <span className="text-[10px] text-[#5E6B7C]">Sirine waktu Imsak</span>
+                      <span className="text-[10px] text-[#AABBD0]">Sirine waktu Imsak</span>
                     </div>
-                    <Play className="w-4 h-4 text-[#0756C9] shrink-0" />
+                    <Play className="w-4 h-4 text-[#168BFF] shrink-0" />
                   </button>
 
                   <button
                     onClick={() => playTestAudio('terbit')}
-                    className="p-3 rounded-xl border border-[#E4E9F0] hover:border-[#0756C9] bg-white hover:bg-[#E8F2FF] text-left transition flex items-center justify-between group cursor-pointer"
+                    className="p-3 rounded-xl border border-[#29415E] hover:border-[#168BFF] bg-[#082245] hover:bg-[#0c2f5d] text-left transition flex items-center justify-between group cursor-pointer"
                   >
                     <div>
-                      <span className="text-xs font-bold text-[#061A35] block group-hover:text-[#0756C9]">
+                      <span className="text-xs font-bold text-white block group-hover:text-[#168BFF]">
                         Uji Suara Ayam (Terbit)
                       </span>
-                      <span className="text-[10px] text-[#5E6B7C]">Pengingat waktu Syuruq</span>
+                      <span className="text-[10px] text-[#AABBD0]">Pengingat waktu Syuruq</span>
                     </div>
-                    <Play className="w-4 h-4 text-[#0756C9] shrink-0" />
+                    <Play className="w-4 h-4 text-[#168BFF] shrink-0" />
                   </button>
                 </div>
               </div>
 
               {/* 4. Per-prayer Enable Checkboxes */}
               <div className="space-y-2">
-                <label className="text-xs font-bold text-[#061A35] uppercase tracking-wider block">
+                <label className="text-xs font-bold text-white uppercase tracking-wider block">
                   Pilih Waktu yang Membunyikan Audio
                 </label>
 
@@ -447,13 +447,13 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                   ].map(p => (
                     <label
                       key={p.key}
-                      className="p-2.5 rounded-xl border border-[#E4E9F0] hover:bg-[#FDFBF5] flex items-center justify-between cursor-pointer transition"
+                      className="p-2.5 rounded-xl border border-[#29415E] bg-[#082245] hover:bg-[#0c2f5d] flex items-center justify-between cursor-pointer transition"
                     >
                       <div>
-                        <span className="text-xs font-bold text-[#061A35] block">
+                        <span className="text-xs font-bold text-white block">
                           {p.label}
                         </span>
-                        <span className="text-[10px] text-[#5E6B7C]">{p.desc}</span>
+                        <span className="text-[10px] text-[#AABBD0]">{p.desc}</span>
                       </div>
                       <input
                         type="checkbox"
@@ -465,7 +465,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                           };
                           updatePrayerPrefs({ enabledPrayers: updated });
                         }}
-                        className="w-4 h-4 accent-[#0756C9] rounded-md cursor-pointer"
+                        className="w-4 h-4 accent-[#168BFF] rounded-md cursor-pointer"
                       />
                     </label>
                   ))}
@@ -473,21 +473,21 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
               </div>
 
               {/* 5. Device Notifications */}
-              <div className="p-3.5 rounded-xl bg-[#FDFBF5] border border-[#E4E9F0] space-y-2">
+              <div className="p-3.5 rounded-xl bg-[#082245] border border-[#29415E] space-y-2">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Bell className="w-4 h-4 text-[#0756C9]" />
-                    <span className="text-xs font-bold text-[#061A35]">
+                    <Bell className="w-4 h-4 text-[#168BFF]" />
+                    <span className="text-xs font-bold text-white">
                       Izin Notifikasi Perangkat
                     </span>
                   </div>
                   <span
-                    className={`text-[10px] font-bold px-2 py-0.5 rounded-md ${
+                    className={`text-[10px] font-bold px-2 py-0.5 rounded-md border ${
                       notificationPermission === 'granted'
-                        ? 'bg-emerald-100 text-emerald-700'
+                        ? 'bg-emerald-950/60 border-emerald-800 text-emerald-400'
                         : notificationPermission === 'denied'
-                        ? 'bg-red-100 text-red-700'
-                        : 'bg-amber-100 text-amber-700'
+                        ? 'bg-red-950/60 border-red-800 text-red-400'
+                        : 'bg-amber-950/60 border-amber-800 text-amber-400'
                     }`}
                   >
                     {notificationPermission === 'granted'
@@ -501,7 +501,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                 {notificationPermission !== 'granted' && (
                   <button
                     onClick={requestNotificationPermission}
-                    className="w-full py-2 rounded-lg bg-[#0756C9] hover:bg-[#0645A8] text-white text-xs font-bold transition cursor-pointer"
+                    className="w-full py-2 rounded-lg bg-[#168BFF] hover:bg-[#168BFF]/90 text-white text-xs font-bold transition cursor-pointer"
                   >
                     Aktifkan Notifikasi Masuk Waktu Salat
                   </button>
@@ -509,8 +509,8 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
               </div>
 
               {/* 6. Realistic Browser Policy Disclaimer */}
-              <div className="p-3 rounded-xl bg-amber-50/70 border border-amber-200/60 flex items-start gap-2.5 text-amber-900">
-                <AlertCircle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+              <div className="p-3 rounded-xl bg-amber-950/40 border border-amber-800/60 flex items-start gap-2.5 text-amber-200">
+                <AlertCircle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                 <p className="text-[11px] leading-relaxed">
                   <strong>Catatan Perangkat:</strong> Browser modern dan sistem operasi membatasi pemutaran audio saat tab atau aplikasi ditutup sepenuhnya. Biarkan aplikasi tetap terbuka atau berjalan di latar belakang (background) agar audio pengingat dapat berbunyi tepat waktu.
                 </p>
@@ -520,10 +520,10 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="px-5 py-3.5 border-t border-[#E4E9F0] bg-[#FDFBF5] flex items-center justify-between">
+        <div className="px-5 py-3.5 border-t border-[#29415E] bg-[#082245] flex items-center justify-between">
           <button
             onClick={handleReset}
-            className="inline-flex items-center gap-1.5 text-xs font-medium text-[#5E6B7C] hover:text-[#061A35] transition cursor-pointer"
+            className="inline-flex items-center gap-1.5 text-xs font-medium text-[#AABBD0] hover:text-white transition cursor-pointer"
           >
             <RotateCcw className="w-3.5 h-3.5" />
             <span>Atur Ulang Default</span>
@@ -531,7 +531,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
 
           <div className="flex items-center gap-3">
             {savedSuccess && (
-              <span className="inline-flex items-center gap-1 text-xs text-emerald-600 font-semibold animate-fade-in">
+              <span className="inline-flex items-center gap-1 text-xs text-emerald-400 font-semibold animate-fade-in">
                 <Check className="w-4 h-4" />
                 <span>Tersimpan</span>
               </span>
@@ -541,7 +541,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                 stopPrayerAudio();
                 onClose();
               }}
-              className="px-4 py-2 rounded-xl bg-[#0756C9] hover:bg-[#0645A8] text-white text-xs font-bold transition shadow-xs cursor-pointer"
+              className="px-4 py-2 rounded-xl bg-[#168BFF] hover:bg-[#168BFF]/90 text-white text-xs font-bold transition shadow-md cursor-pointer"
             >
               Selesai
             </button>

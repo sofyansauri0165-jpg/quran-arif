@@ -5,16 +5,25 @@
   --brand-secondary: #0645A8;
   --brand-accent: #168BFF;
   --brand-navy: #061A35;
-  --brand-navy-secondary: #0B2D68;
+  --brand-navy-dark: #031126;
+  --brand-navy-card: #082245;
 
-  --background: #FDFBF5;
-  --surface: #FFFFFF;
-  --surface-blue: #E8F2FF;
+  --background: #031126;
+  --surface: #061A35;
+  --surface-card: #082245;
+  --surface-blue: #0c2d58;
 
-  --text-primary: #061A35;
-  --text-secondary: #5E6B7C;
-  --border: #E4E9F0;
+  --text-primary: #FFFFFF;
+  --text-secondary: #AABBD0;
+  --text-muted: #7E95B1;
+  --border: #29415E;
   --focus-ring: #168BFF;
+}
+
+html {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -22,14 +31,20 @@ body {
   background-color: var(--background);
   color: var(--text-primary);
   min-height: 100vh;
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
 }
 
 .font-arabic {
   font-family: 'Amiri', 'Traditional Arabic', 'Noto Naskh Arabic', serif;
   direction: rtl;
   text-align: right;
-  line-height: 2.5;
+  line-height: 2.3;
   word-spacing: 2px;
+  font-feature-settings: "cv01" on, "ss01" on;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* Custom scrollbars */
@@ -38,14 +53,14 @@ body {
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #F1F4F9;
+  background: #031126;
 }
 ::-webkit-scrollbar-thumb {
-  background: #C7D4E5;
+  background: #29415E;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #0756C9;
+  background: #168BFF;
 }
 
 @media (prefers-reduced-motion: reduce) {

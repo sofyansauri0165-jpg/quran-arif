@@ -22,19 +22,19 @@ export const MiniAudioPlayer: React.FC = () => {
       : 0;
 
   return (
-    <div className="fixed bottom-16 md:bottom-6 left-3 right-3 md:left-auto md:right-6 md:w-96 z-50 animate-slide-up">
-      <div className="bg-white/95 backdrop-blur-md rounded-2xl shadow-xl border border-[#E4E9F0] p-3.5 text-[#061A35]">
+    <div className="fixed bottom-18 md:bottom-6 left-3 right-3 md:left-auto md:right-6 md:w-96 z-50 animate-slide-up">
+      <div className="bg-[#082245]/95 backdrop-blur-md rounded-2xl shadow-2xl border border-[#29415E] p-3.5 text-white">
         {/* Top Info row */}
         <div className="flex items-center justify-between gap-2 mb-2">
           <div className="flex items-center gap-2.5 min-w-0">
-            <div className="w-8 h-8 rounded-xl bg-[#E8F2FF] flex items-center justify-center text-[#0756C9] shrink-0">
+            <div className="w-8 h-8 rounded-xl bg-[#0c2e5b] border border-[#168BFF]/30 flex items-center justify-center text-[#168BFF] shrink-0">
               <Volume2 className="w-4 h-4" />
             </div>
             <div className="min-w-0">
-              <h4 className="text-xs font-bold truncate text-[#061A35]">
+              <h4 className="text-xs font-bold truncate text-white">
                 {playingState.title}
               </h4>
-              <p className="text-[11px] text-[#5E6B7C] truncate">
+              <p className="text-[11px] text-[#AABBD0] truncate">
                 Qari: {playingState.reciterName}
               </p>
             </div>
@@ -44,7 +44,7 @@ export const MiniAudioPlayer: React.FC = () => {
             <button
               onClick={togglePlay}
               disabled={playingState.isLoading}
-              className="w-8 h-8 rounded-xl bg-[#0756C9] hover:bg-[#0645A8] text-white flex items-center justify-center transition active:scale-95 cursor-pointer shadow-xs disabled:opacity-50"
+              className="w-8 h-8 rounded-xl bg-[#168BFF] hover:bg-[#168BFF]/85 text-white flex items-center justify-center transition active:scale-95 cursor-pointer shadow-md disabled:opacity-50"
               aria-label={playingState.isPlaying ? 'Jeda Audio' : 'Putar Audio'}
             >
               {playingState.isLoading ? (
@@ -57,7 +57,7 @@ export const MiniAudioPlayer: React.FC = () => {
             </button>
             <button
               onClick={stop}
-              className="p-1.5 rounded-xl hover:bg-[#E8F2FF] text-[#5E6B7C] hover:text-[#061A35] transition cursor-pointer"
+              className="p-1.5 rounded-xl hover:bg-[#0c2e5b] text-[#AABBD0] hover:text-white transition cursor-pointer"
               title="Hentikan Audio"
             >
               <X className="w-4 h-4" />
@@ -67,15 +67,15 @@ export const MiniAudioPlayer: React.FC = () => {
 
         {/* Error notice if failed */}
         {playingState.error && (
-          <div className="mb-2 p-1.5 rounded-lg bg-red-50 text-red-600 text-[11px] flex items-center gap-1.5">
-            <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+          <div className="mb-2 p-1.5 rounded-lg bg-red-950/60 border border-red-800 text-red-300 text-[11px] flex items-center gap-1.5">
+            <AlertCircle className="w-3.5 h-3.5 shrink-0 text-red-400" />
             <span className="truncate">{playingState.error}</span>
           </div>
         )}
 
         {/* Progress bar & Seek */}
         <div className="space-y-1">
-          <div className="relative w-full h-1.5 bg-[#E4E9F0] rounded-full overflow-hidden cursor-pointer">
+          <div className="relative w-full h-1.5 bg-[#04152D] rounded-full overflow-hidden cursor-pointer border border-white/10">
             <input
               type="range"
               min={0}
@@ -85,12 +85,12 @@ export const MiniAudioPlayer: React.FC = () => {
               className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
             />
             <div
-              className="h-full bg-[#0756C9] transition-all"
+              className="h-full bg-[#168BFF] transition-all shadow-sm"
               style={{ width: `${progressPercent}%` }}
             />
           </div>
 
-          <div className="flex justify-between text-[10px] text-[#5E6B7C] font-mono">
+          <div className="flex justify-between text-[10px] text-[#7E95B1] font-mono">
             <span>{formatTime(playingState.currentTime)}</span>
             <span>{formatTime(playingState.duration)}</span>
           </div>

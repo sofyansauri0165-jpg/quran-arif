@@ -257,28 +257,28 @@ export const ReaderPage: React.FC<ReaderPageProps> = ({
   return (
     <div className="max-w-4xl mx-auto space-y-6 pb-28">
       {/* Top Header & Navigation bar */}
-      <div className="flex items-center justify-between gap-3 bg-white p-3 sm:p-4 rounded-2xl border border-[#E4E9F0] shadow-xs">
+      <div className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 sm:gap-3 bg-[#061A35] p-3 sm:p-4 rounded-2xl border border-[#29415E] shadow-xl">
         <button
           onClick={onBack}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-[#5E6B7C] hover:text-[#061A35] hover:bg-[#E8F2FF] transition cursor-pointer"
+          className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold text-[#AABBD0] hover:text-white hover:bg-[#082245] transition cursor-pointer"
         >
           <ArrowLeft className="w-4 h-4" />
-          <span className="hidden sm:inline">Daftar Surat</span>
+          <span className="hidden min-[360px]:inline">Daftar Surat</span>
         </button>
 
         {/* Jump selector */}
-        <div className="flex items-center gap-2">
-          <label htmlFor="jump-ayah" className="text-xs font-medium text-[#5E6B7C] hidden sm:inline">
+        <div className="flex items-center gap-1.5 sm:gap-2">
+          <label htmlFor="jump-ayah" className="text-xs font-medium text-[#AABBD0] hidden md:inline">
             Lompat ke Ayat:
           </label>
           <select
             id="jump-ayah"
             value={activeAyah}
             onChange={e => handleJumpToAyah(parseInt(e.target.value, 10))}
-            className="p-1.5 text-xs font-semibold rounded-xl border border-[#E4E9F0] bg-[#FDFBF5] text-[#061A35] cursor-pointer"
+            className="p-1.5 text-xs font-semibold rounded-xl border border-[#29415E] bg-[#082245] text-white cursor-pointer focus:outline-hidden focus:ring-2 focus:ring-[#168BFF] max-w-[120px] min-[360px]:max-w-[140px] sm:max-w-none"
           >
             {detail.ayat.map(a => (
-              <option key={a.nomorAyat} value={a.nomorAyat}>
+              <option key={a.nomorAyat} value={a.nomorAyat} className="bg-[#061A35] text-white">
                 Ayat {a.nomorAyat}
               </option>
             ))}
@@ -296,10 +296,10 @@ export const ReaderPage: React.FC<ReaderPageProps> = ({
                 totalAyah: detail.jumlahAyat,
               })
             }
-            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${
+            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer border ${
               isSurahPlaying
-                ? 'bg-[#0756C9] text-white animate-pulse'
-                : 'bg-[#E8F2FF] text-[#0756C9] hover:bg-[#D4E6FF]'
+                ? 'bg-[#168BFF] text-white border-[#168BFF] animate-pulse shadow-md'
+                : 'bg-[#082245] text-[#168BFF] border-[#29415E] hover:border-[#168BFF]'
             }`}
             title="Dengarkan Surat Penuh"
           >
@@ -309,25 +309,25 @@ export const ReaderPage: React.FC<ReaderPageProps> = ({
 
           <button
             onClick={() => setTafsirAyah(activeAyah || 1)}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#FDFBF5] hover:bg-[#E8F2FF] text-[#061A35] text-xs font-semibold border border-[#E4E9F0] transition cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#082245] hover:bg-[#0c2f5d] text-[#168BFF] text-xs font-semibold border border-[#29415E] hover:border-[#168BFF] transition cursor-pointer"
           >
-            <BookOpen className="w-4 h-4 text-[#0756C9]" />
+            <BookOpen className="w-4 h-4 text-[#168BFF]" />
             <span className="hidden sm:inline">Tafsir</span>
           </button>
         </div>
       </div>
 
       {/* Surah Hero Card Banner */}
-      <div className="relative overflow-hidden rounded-3xl bg-linear-to-b from-[#E8F2FF] to-white border border-[#168BFF]/20 p-6 sm:p-8 text-center space-y-4 shadow-xs">
-        <div className="inline-block px-3 py-1 rounded-full bg-white text-[#0756C9] font-bold text-xs shadow-xs border border-[#E4E9F0]">
+      <div className="relative overflow-hidden rounded-3xl bg-linear-to-b from-[#082245] via-[#061A35] to-[#04152D] border border-[#29415E] p-6 sm:p-8 text-center space-y-4 shadow-xl">
+        <div className="inline-block px-3 py-1 rounded-full bg-[#04152D] text-[#168BFF] font-bold text-xs shadow-xs border border-[#29415E]">
           Surat ke-{detail.nomor} • {detail.tempatTurun} • {detail.jumlahAyat} Ayat
         </div>
 
         <div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-[#061A35] tracking-tight">
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
             {detail.namaLatin}
           </h1>
-          <p className="text-sm font-semibold text-[#0756C9] mt-1">
+          <p className="text-sm font-semibold text-[#168BFF] mt-1">
             "{detail.arti}"
           </p>
         </div>
@@ -335,7 +335,7 @@ export const ReaderPage: React.FC<ReaderPageProps> = ({
         {/* Bismillah Header (Except At-Taubah #9) */}
         {detail.nomor !== 9 && (
           <div className="pt-2">
-            <p className="font-arabic text-3xl sm:text-4xl text-[#061A35] font-bold">
+            <p className="font-arabic text-3xl sm:text-4xl text-white font-bold">
               بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ
             </p>
           </div>
@@ -370,49 +370,49 @@ export const ReaderPage: React.FC<ReaderPageProps> = ({
                   updatedAt: Date.now(),
                 });
               }}
-              className={`p-5 sm:p-6 rounded-2xl bg-white border transition-all duration-200 cursor-default ${
+              className={`p-5 sm:p-6 rounded-2xl border transition-all duration-200 cursor-default ${
                 isPlayingThisAyah
-                  ? 'border-[#0756C9] ring-2 ring-[#0756C9]/20 shadow-md bg-blue-50/20'
+                  ? 'border-[#168BFF] ring-2 ring-[#168BFF]/40 shadow-xl bg-[#082245]'
                   : isSelected
-                  ? 'border-[#168BFF] shadow-xs'
-                  : 'border-[#E4E9F0] hover:border-gray-300'
+                  ? 'border-[#168BFF]/70 bg-[#061A35] shadow-lg'
+                  : 'bg-[#061A35] border-[#29415E] hover:border-[#168BFF]/40'
               }`}
             >
               {/* Verse action header */}
-              <div className="flex items-center justify-between pb-4 border-b border-[#E4E9F0]/80">
+              <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-[#29415E]">
                 {/* Verse badge */}
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 min-w-0">
                   <div
-                    className={`w-9 h-9 rounded-xl font-extrabold text-xs flex items-center justify-center transition ${
+                    className={`w-9 h-9 rounded-xl font-extrabold text-xs flex items-center justify-center transition shrink-0 ${
                       isPlayingThisAyah
-                        ? 'bg-[#0756C9] text-white shadow-xs'
+                        ? 'bg-[#168BFF] text-white shadow-md'
                         : isSelected
-                        ? 'bg-[#E8F2FF] text-[#0756C9] font-bold'
-                        : 'bg-[#FDFBF5] text-[#5E6B7C] border border-[#E4E9F0]'
+                        ? 'bg-[#082245] text-[#168BFF] border border-[#168BFF]/40 font-bold'
+                        : 'bg-[#082245] text-[#AABBD0] border border-[#29415E]'
                     }`}
                   >
                     {detail.nomor}:{ayat.nomorAyat}
                   </div>
                   {isPlayingThisAyah && (
-                    <span className="flex items-center gap-1 text-[11px] font-bold text-[#0756C9] animate-pulse">
-                      <Volume2 className="w-3.5 h-3.5" />
-                      <span>Sedang Tilawah</span>
+                    <span className="flex items-center gap-1 text-[11px] font-bold text-[#168BFF] animate-pulse truncate">
+                      <Volume2 className="w-3.5 h-3.5 shrink-0" />
+                      <span className="hidden min-[380px]:inline">Sedang Tilawah</span>
                     </span>
                   )}
                 </div>
 
-                {/* Ayat buttons: Play, Bookmark, Note, Copy, Share, Tafsir */}
-                <div className="flex items-center gap-1 text-[#5E6B7C]">
+                {/* Ayat buttons: Play, Bookmark, Note, Tafsir, Copy, Share */}
+                <div className="flex items-center gap-0.5 sm:gap-1 text-[#AABBD0] shrink-0">
                   {/* Play Ayah Audio */}
                   <button
                     onClick={e => {
                       e.stopPropagation();
                       handlePlayAyah(ayat);
                     }}
-                    className={`p-2 rounded-xl transition cursor-pointer ${
+                    className={`p-1.5 sm:p-2 rounded-xl transition cursor-pointer border ${
                       isPlayingThisAyah
-                        ? 'bg-[#0756C9] text-white'
-                        : 'hover:bg-[#E8F2FF] hover:text-[#0756C9]'
+                        ? 'bg-[#168BFF] text-white border-[#168BFF]'
+                        : 'bg-[#082245] text-[#168BFF] border-[#29415E] hover:border-[#168BFF]'
                     }`}
                     title="Putar Audio Ayat Ini"
                   >
@@ -425,15 +425,15 @@ export const ReaderPage: React.FC<ReaderPageProps> = ({
                       e.stopPropagation();
                       handleToggleBookmark(ayat);
                     }}
-                    className={`p-2 rounded-xl transition cursor-pointer ${
+                    className={`p-1.5 sm:p-2 rounded-xl transition cursor-pointer border ${
                       isSaved
-                        ? 'text-[#0756C9] bg-[#E8F2FF]'
-                        : 'hover:bg-[#E8F2FF] hover:text-[#061A35]'
+                        ? 'text-[#168BFF] bg-[#082245] border-[#168BFF]'
+                        : 'text-[#AABBD0] hover:bg-[#082245] hover:text-white border-transparent'
                     }`}
                     title={isSaved ? 'Hapus dari Tersimpan' : 'Simpan Ayat'}
                   >
                     <Bookmark
-                      className={`w-4 h-4 ${isSaved ? 'fill-[#0756C9]' : ''}`}
+                      className={`w-4 h-4 ${isSaved ? 'fill-[#168BFF]' : ''}`}
                     />
                   </button>
 
@@ -443,7 +443,7 @@ export const ReaderPage: React.FC<ReaderPageProps> = ({
                       e.stopPropagation();
                       setNoteAyat(ayat);
                     }}
-                    className="p-2 rounded-xl hover:bg-[#E8F2FF] hover:text-[#061A35] transition cursor-pointer"
+                    className="p-1.5 sm:p-2 rounded-xl text-[#AABBD0] hover:bg-[#082245] hover:text-white transition cursor-pointer"
                     title="Tambah / Baca Catatan Pribadi"
                   >
                     <Edit3 className="w-4 h-4" />
@@ -455,7 +455,7 @@ export const ReaderPage: React.FC<ReaderPageProps> = ({
                       e.stopPropagation();
                       setTafsirAyah(ayat.nomorAyat);
                     }}
-                    className="p-2 rounded-xl hover:bg-[#E8F2FF] hover:text-[#0756C9] transition cursor-pointer"
+                    className="p-1.5 sm:p-2 rounded-xl text-[#AABBD0] hover:bg-[#082245] hover:text-[#168BFF] transition cursor-pointer"
                     title="Tafsir Kemenag RI Ayat Ini"
                   >
                     <BookOpen className="w-4 h-4" />
@@ -467,11 +467,11 @@ export const ReaderPage: React.FC<ReaderPageProps> = ({
                       e.stopPropagation();
                       handleCopyAyah(ayat);
                     }}
-                    className="p-2 rounded-xl hover:bg-[#E8F2FF] hover:text-[#061A35] transition cursor-pointer"
+                    className="p-1.5 sm:p-2 rounded-xl text-[#AABBD0] hover:bg-[#082245] hover:text-white transition cursor-pointer"
                     title="Salin Teks Arab & Terjemahan"
                   >
                     {copiedAyah === ayat.nomorAyat ? (
-                      <Check className="w-4 h-4 text-emerald-600" />
+                      <Check className="w-4 h-4 text-emerald-400" />
                     ) : (
                       <Copy className="w-4 h-4" />
                     )}
@@ -483,7 +483,7 @@ export const ReaderPage: React.FC<ReaderPageProps> = ({
                       e.stopPropagation();
                       handleShareAyah(ayat);
                     }}
-                    className="p-2 rounded-xl hover:bg-[#E8F2FF] hover:text-[#061A35] transition cursor-pointer"
+                    className="p-1.5 sm:p-2 rounded-xl text-[#AABBD0] hover:bg-[#082245] hover:text-white transition cursor-pointer"
                     title="Bagikan Ayat"
                   >
                     <Share2 className="w-4 h-4" />
@@ -492,11 +492,12 @@ export const ReaderPage: React.FC<ReaderPageProps> = ({
               </div>
 
               {/* Arabic Verse Text */}
-              <div className="py-6 sm:py-8">
+              <div className="py-5 sm:py-7">
                 <p
-                  className={`font-arabic text-[#061A35] ${
-                    arabicFontSizes[settings.arabicFontSize] || 'text-4xl'
+                  className={`font-arabic text-white leading-[2.2] sm:leading-[2.5] text-right dir-rtl break-words ${
+                    arabicFontSizes[settings.arabicFontSize] || 'text-3xl sm:text-4xl'
                   }`}
+                  dir="rtl"
                 >
                   {ayat.teksArab}
                 </p>
@@ -504,14 +505,14 @@ export const ReaderPage: React.FC<ReaderPageProps> = ({
 
               {/* Transliteration (if enabled) */}
               {settings.showTransliteration && ayat.teksLatin && (
-                <div className="pt-2 text-xs sm:text-sm text-[#0756C9] font-medium leading-relaxed italic">
+                <div className="pt-2 text-xs sm:text-sm text-[#168BFF] font-medium leading-relaxed italic break-words">
                   {ayat.teksLatin}
                 </div>
               )}
 
               {/* Translation (if enabled) */}
               {settings.showTranslation && (
-                <div className="pt-2 text-xs sm:text-sm text-[#5E6B7C] leading-relaxed border-t border-[#E4E9F0]/50 mt-3">
+                <div className="pt-2 text-xs sm:text-sm text-[#E2EDF8] leading-relaxed border-t border-[#29415E] mt-3 break-words">
                   {ayat.teksIndonesia}
                 </div>
               )}
@@ -521,7 +522,7 @@ export const ReaderPage: React.FC<ReaderPageProps> = ({
       </div>
 
       {/* Surah Navigation Footer: Previous & Next Surah */}
-      <div className="flex items-center justify-between gap-3 pt-6 border-t border-[#E4E9F0]">
+      <div className="flex items-center justify-between gap-3 pt-6 border-t border-[#29415E]">
         {typeof detail.suratSebelumnya === 'object' && detail.suratSebelumnya ? (
           <button
             onClick={() => {
@@ -529,11 +530,11 @@ export const ReaderPage: React.FC<ReaderPageProps> = ({
                 onNavigateSurah(detail.suratSebelumnya.nomor);
               }
             }}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white border border-[#E4E9F0] hover:border-[#0756C9] hover:bg-[#E8F2FF] text-[#061A35] text-xs font-bold transition cursor-pointer"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#061A35] border border-[#29415E] hover:border-[#168BFF] hover:bg-[#082245] text-white text-xs font-bold transition cursor-pointer shadow-md"
           >
-            <ChevronLeft className="w-4 h-4 text-[#0756C9]" />
+            <ChevronLeft className="w-4 h-4 text-[#168BFF]" />
             <div className="text-left">
-              <span className="text-[10px] text-[#5E6B7C] block font-normal">Surat Sebelumnya</span>
+              <span className="text-[10px] text-[#AABBD0] block font-normal">Surat Sebelumnya</span>
               <span>{detail.suratSebelumnya.namaLatin}</span>
             </div>
           </button>
@@ -548,13 +549,13 @@ export const ReaderPage: React.FC<ReaderPageProps> = ({
                 onNavigateSurah(detail.suratSelanjutnya.nomor);
               }
             }}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white border border-[#E4E9F0] hover:border-[#0756C9] hover:bg-[#E8F2FF] text-[#061A35] text-xs font-bold transition cursor-pointer"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#061A35] border border-[#29415E] hover:border-[#168BFF] hover:bg-[#082245] text-white text-xs font-bold transition cursor-pointer shadow-md"
           >
             <div className="text-right">
-              <span className="text-[10px] text-[#5E6B7C] block font-normal">Surat Berikutnya</span>
+              <span className="text-[10px] text-[#AABBD0] block font-normal">Surat Berikutnya</span>
               <span>{detail.suratSelanjutnya.namaLatin}</span>
             </div>
-            <ChevronRight className="w-4 h-4 text-[#0756C9]" />
+            <ChevronRight className="w-4 h-4 text-[#168BFF]" />
           </button>
         ) : (
           <div />

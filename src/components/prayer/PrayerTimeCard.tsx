@@ -45,50 +45,65 @@ export const PrayerTimeCard: React.FC<{ onOpenSettings?: () => void }> = ({ onOp
     { key: 'isya', label: 'Isya', time: schedule?.isya || '--:--', isAudible: true },
   ];
 
+  const mainPrayers: { key: PrayerKey; label: string; time: string; isAudible: boolean }[] = [
+    { key: 'subuh', label: 'Subuh', time: schedule?.subuh || '--:--', isAudible: true },
+    { key: 'dzuhur', label: 'Dzuhur', time: schedule?.dzuhur || '--:--', isAudible: true },
+    { key: 'ashar', label: 'Ashar', time: schedule?.ashar || '--:--', isAudible: true },
+    { key: 'maghrib', label: 'Maghrib', time: schedule?.maghrib || '--:--', isAudible: true },
+    { key: 'isya', label: 'Isya', time: schedule?.isya || '--:--', isAudible: true },
+  ];
+
   return (
     <>
-      <div className="rounded-3xl bg-white border border-[#E4E9F0] p-5 sm:p-6 shadow-xs space-y-5">
+      <div className="rounded-3xl bg-[#082245] border border-[#29415E] p-3.5 min-[380px]:p-5 sm:p-6 shadow-xl space-y-4 text-white">
         {/* Top Info Bar */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#E4E9F0]">
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => setIsCityModalOpen(true)}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#E8F2FF] hover:bg-[#D4E6FF] text-[#0756C9] text-xs font-bold transition cursor-pointer"
-              title="Ganti Kota / Wilayah"
-            >
-              <MapPin className="w-3.5 h-3.5" />
-              <span>{schedule?.lokasi || preferences.cityName}</span>
-            </button>
-            <span className="text-[11px] text-[#5E6B7C]">
-              {schedule?.tanggal || 'Kemenag RI'}
-            </span>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#29415E]">
+          <div className="flex items-center gap-3">
+            {/* Mosque Badge Icon */}
+            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-[#0c2e5b] text-[#168BFF] border border-[#168BFF]/30 flex items-center justify-center shrink-0 shadow-md">
+              <Sparkles className="w-5 h-5 text-[#168BFF]" />
+            </div>
+
+            <div>
+              <h4 className="font-bold text-white text-sm sm:text-base tracking-tight">
+                Jadwal Shalat
+              </h4>
+              <button
+                onClick={() => setIsCityModalOpen(true)}
+                className="inline-flex items-center gap-1 text-xs text-[#8FA7C4] hover:text-[#168BFF] transition cursor-pointer"
+                title="Ganti Wilayah / Kota"
+              >
+                <MapPin className="w-3 h-3 text-[#168BFF]" />
+                <span className="font-medium underline decoration-dotted">{schedule?.lokasi || preferences.cityName}</span>
+              </button>
+            </div>
           </div>
 
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-2">
             {/* Live Clock */}
-            <div className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-[#FDFBF5] border border-[#E4E9F0] text-xs font-mono font-bold text-[#061A35]">
-              <Clock className="w-3.5 h-3.5 text-[#0756C9]" />
+            <div className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-[#04152D] border border-[#29415E] text-xs font-mono font-bold text-[#168BFF]">
+              <Clock className="w-3.5 h-3.5" />
               <span>{currentTimeString || '--:--:--'} WIB</span>
             </div>
 
             {/* Audio Master status */}
             <button
               onClick={onOpenSettings}
-              className={`p-1.5 rounded-xl text-xs font-semibold flex items-center gap-1 transition cursor-pointer ${
+              className={`p-1.5 rounded-xl text-xs font-semibold flex items-center gap-1 transition cursor-pointer border ${
                 preferences.enabled
-                  ? 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100'
-                  : 'bg-gray-100 text-[#5E6B7C] hover:bg-gray-200'
+                  ? 'bg-emerald-950/60 text-emerald-400 border-emerald-800'
+                  : 'bg-[#04152D] text-[#7E95B1] border-[#29415E] hover:text-white'
               }`}
               title="Pengaturan Audio Adzan & Pengingat"
             >
               {preferences.enabled ? (
                 <>
-                  <Volume2 className="w-4 h-4 text-emerald-600" />
+                  <Volume2 className="w-4 h-4 text-emerald-400" />
                   <span className="text-[11px] font-bold hidden sm:inline">Adzan Aktif</span>
                 </>
               ) : (
                 <>
-                  <VolumeX className="w-4 h-4 text-gray-400" />
+                  <VolumeX className="w-4 h-4" />
                   <span className="text-[11px] font-bold hidden sm:inline">Adzan Senyap</span>
                 </>
               )}
@@ -98,18 +113,18 @@ export const PrayerTimeCard: React.FC<{ onOpenSettings?: () => void }> = ({ onOp
 
         {/* Highlight Next Prayer Countdown */}
         {nextPrayer && (
-          <div className="p-4 rounded-2xl bg-linear-to-r from-[#0756C9] to-[#0645A8] text-white flex flex-col sm:flex-row items-center justify-between gap-3 shadow-sm">
+          <div className="p-3.5 sm:p-4 rounded-2xl bg-linear-to-r from-[#0756C9] to-[#04152D] border border-[#168BFF]/40 text-white flex flex-col sm:flex-row items-center justify-between gap-3 shadow-md">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center shrink-0">
-                <Sparkles className="w-5 h-5 text-amber-300" />
+              <div className="w-9 h-9 rounded-xl bg-white/15 flex items-center justify-center shrink-0">
+                <Clock className="w-4 h-4 text-amber-300" />
               </div>
               <div>
-                <span className="text-[11px] font-medium text-blue-100 block">
+                <span className="text-[11px] font-medium text-blue-200 block">
                   Waktu Salat Berikutnya:
                 </span>
-                <h4 className="text-lg font-extrabold tracking-tight">
+                <h5 className="text-base sm:text-lg font-extrabold tracking-tight">
                   {nextPrayer.name} • {nextPrayer.time} WIB
-                </h4>
+                </h5>
               </div>
             </div>
 
@@ -124,66 +139,35 @@ export const PrayerTimeCard: React.FC<{ onOpenSettings?: () => void }> = ({ onOp
           </div>
         )}
 
-        {/* Prayer Times Grid */}
+        {/* 5 Prayer Times Horizontal Columns matching mockup */}
         {loadingSchedule ? (
-          <div className="py-8 flex flex-col items-center justify-center gap-2 text-[#5E6B7C]">
-            <Loader2 className="w-6 h-6 animate-spin text-[#0756C9]" />
+          <div className="py-6 flex flex-col items-center justify-center gap-2 text-[#7E95B1]">
+            <Loader2 className="w-6 h-6 animate-spin text-[#168BFF]" />
             <span className="text-xs">Memuat jadwal salat Kemenag RI...</span>
           </div>
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2.5">
-            {prayersList.map(item => {
+          <div className="grid grid-cols-5 gap-1 min-[360px]:gap-1.5 sm:gap-3 text-center">
+            {mainPrayers.map(item => {
               const isNext = nextPrayer?.key === item.key;
-              const isAudioActive =
-                item.isAudible &&
-                preferences.enabled &&
-                preferences.enabledPrayers[item.key as keyof typeof preferences.enabledPrayers];
-
               return (
                 <div
                   key={item.key}
-                  className={`p-3 rounded-2xl border text-center transition flex flex-col justify-between ${
+                  className={`p-1.5 min-[360px]:p-2.5 sm:p-3 rounded-xl sm:rounded-2xl border transition flex flex-col justify-between ${
                     isNext
-                      ? 'bg-[#E8F2FF] border-[#0756C9] ring-2 ring-[#0756C9]/20 shadow-xs'
-                      : 'bg-[#FDFBF5] border-[#E4E9F0] hover:border-gray-300'
+                      ? 'bg-[#0c2e5b] border-[#168BFF] ring-2 ring-[#168BFF]/30 shadow-md'
+                      : 'bg-[#04152D]/80 border-[#29415E] hover:border-[#168BFF]/40'
                   }`}
                 >
-                  <div>
-                    <div className="flex items-center justify-center gap-1 mb-1">
-                      <span className="text-[11px] font-bold text-[#5E6B7C] block truncate">
-                        {item.label}
-                      </span>
-                      {item.isAudible && (
-                        <span
-                          className={`w-1.5 h-1.5 rounded-full ${
-                            isAudioActive ? 'bg-emerald-500' : 'bg-gray-300'
-                          }`}
-                          title={isAudioActive ? 'Audio adzan aktif' : 'Audio dimatikan'}
-                        />
-                      )}
-                    </div>
-                    <span className="text-base font-extrabold text-[#061A35] font-mono">
-                      {item.time}
-                    </span>
-                  </div>
-
-                  {item.isAudible && (
-                    <div className="pt-2 mt-1 border-t border-[#E4E9F0]/60">
-                      <button
-                        onClick={() => {
-                          if (item.key === 'subuh') playTestAudio('subuh');
-                          else if (item.key === 'imsak') playTestAudio('imsak');
-                          else if (item.key === 'terbit') playTestAudio('terbit');
-                          else playTestAudio('general');
-                        }}
-                        className="w-full py-1 rounded-lg bg-white hover:bg-[#E8F2FF] text-[#0756C9] text-[10px] font-bold border border-[#E4E9F0] transition flex items-center justify-center gap-1 cursor-pointer"
-                        title={`Uji Audio ${item.label}`}
-                      >
-                        <Play className="w-2.5 h-2.5 fill-current" />
-                        <span>Uji</span>
-                      </button>
-                    </div>
-                  )}
+                  <span className={`text-[9px] min-[360px]:text-[11px] sm:text-xs font-semibold block truncate ${
+                    isNext ? 'text-[#168BFF] font-bold' : 'text-[#8FA7C4]'
+                  }`}>
+                    {item.label}
+                  </span>
+                  <span className={`text-xs min-[360px]:text-sm sm:text-base font-extrabold font-mono mt-0.5 sm:mt-1 ${
+                    isNext ? 'text-[#168BFF] font-black scale-105' : 'text-white'
+                  }`}>
+                    {item.time}
+                  </span>
                 </div>
               );
             })}

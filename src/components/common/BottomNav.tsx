@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, BookOpen, HeartHandshake, Compass, User } from 'lucide-react';
+import { Home, BookOpen, HeartHandshake, Compass } from 'lucide-react';
 
 interface BottomNavProps {
   currentTab: string;
@@ -12,15 +12,14 @@ export const BottomNav: React.FC<BottomNavProps> = ({ currentTab, onNavigate }) 
     { id: 'surahs', label: 'Al-Qur’an', icon: BookOpen },
     { id: 'dua', label: 'Doa', icon: HeartHandshake },
     { id: 'qibla', label: 'Kiblat', icon: Compass },
-    { id: 'profile', label: 'Profil', icon: User },
   ];
 
   return (
     <nav
       aria-label="Navigasi Utama Bawah"
-      className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-[#E4E9F0] pb-safe"
+      className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#031126]/95 backdrop-blur-md border-t border-[#29415E] pb-safe shadow-2xl"
     >
-      <div className="grid grid-cols-5 h-15 max-w-lg mx-auto">
+      <div className="grid grid-cols-4 h-16 max-w-md sm:max-w-lg mx-auto">
         {tabs.map(tab => {
           const Icon = tab.icon;
           const isActive =
@@ -33,17 +32,17 @@ export const BottomNav: React.FC<BottomNavProps> = ({ currentTab, onNavigate }) 
               onClick={() => onNavigate(tab.id)}
               aria-label={tab.label}
               className={`flex flex-col items-center justify-center gap-1 transition-all cursor-pointer ${
-                isActive ? 'text-[#0756C9]' : 'text-[#5E6B7C] hover:text-[#061A35]'
+                isActive ? 'text-[#168BFF]' : 'text-[#AABBD0] hover:text-white'
               }`}
             >
               <div
-                className={`p-1 rounded-xl transition ${
-                  isActive ? 'bg-[#E8F2FF] text-[#0756C9] scale-105' : ''
+                className={`p-1.5 rounded-xl transition ${
+                  isActive ? 'bg-[#082245] text-[#168BFF] ring-1 ring-[#168BFF]/40 shadow-sm scale-105' : ''
                 }`}
               >
                 <Icon className="w-5 h-5" />
               </div>
-              <span className={`text-[10px] truncate max-w-full px-0.5 ${isActive ? 'font-bold' : 'font-medium'}`}>
+              <span className={`text-[9px] min-[360px]:text-[10px] sm:text-xs truncate max-w-full px-0.5 ${isActive ? 'font-bold text-[#168BFF]' : 'font-medium'}`}>
                 {tab.label}
               </span>
             </button>
